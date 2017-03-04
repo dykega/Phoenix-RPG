@@ -15,10 +15,7 @@ class BootstrapController extends Controller
     public function showAction($pageName)
     {
       $templating = $this->container->get('templating');
-      // $html = $templating->render('bootstrap/show.html.twig', array(
-      //       'name' => $pageName
-      //   ));
-      $html = $templating->render('bootstrap/blog/index.html');
+      $html = $templating->render('bootstrap/' . $pageName . '/index.html.twig');
       return new Response($html);
     }
 }
