@@ -7,15 +7,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class BootstrapController extends Controller
+class AttackCalculatorController extends Controller
 {
     /**
-     * @Route("/bootstrap/{pageName}")
+     * @Route("/Test/AttackCalculator/{characterName}")
      */
-    public function showAction($pageName)
+    public function showAction($characterName)
     {
       $templating = $this->container->get('templating');
-      $html = $templating->render('test/bootstrap/' . $pageName . '/index.html.twig');
+      $html = $templating->render('test/AttackCalculator/AttackCalculator.html.twig', array(
+            'characterName' => $characterName
+        ));
       return new Response($html);
     }
 }
