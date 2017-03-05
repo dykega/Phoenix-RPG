@@ -8,10 +8,10 @@
 {% block content %}
 <h1>{{ characterName }}</h1>
 <div class="btn-group" role="group" aria-label="...">
-  <button type="button" id="attackButton1" class="btn btn-default" data-toggle="button" aria-pressed="false" onclick="attackButtonToggled('attackButton1',2)">Flanked?</button>
-  <button type="button" id="attackButton2" class="btn btn-default" data-toggle="button" aria-pressed="false" onclick="attackButtonToggled('attackButton2',2)">Invisible?</button>
-  <button type="button" id="attackButton3" class="btn btn-default" data-toggle="button" aria-pressed="false" onclick="attackButtonToggled('attackButton3',-2)">Using Offhand?</button>
-  <p class="AttackModifierTotal" id="totalAttackModifier">10</p>
+{% for mod in toggleableModifiers %}
+  <button type="button" id="{{"attackButton" ~ mod.UniqueName}}" class="btn btn-default" data-toggle="button" aria-pressed="false" onclick="attackButtonToggled('attackButton{{mod.UniqueName}}',{{mod.Modifier}})">{{mod.DisplayName}}</button>
+{% endfor %}
+  <p class="AttackModifierTotal" id="totalAttackModifier">{{baseModifier}}</p>
 </div>
 <script>
 function attackButtonToggled(buttonID, value){
@@ -22,8 +22,7 @@ function attackButtonToggled(buttonID, value){
   {
     total = total - value;
   }
-  //button is toggled on
-  else
+  else //button is toggled on
   {
     total = total + value;
   }
