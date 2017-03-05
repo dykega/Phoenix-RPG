@@ -36,78 +36,72 @@ class AttackCalculatorController extends Controller
       return new Response($html);
     }
 
-    private function generateModifiers()
-    {
-      $modifiers = [];
-      $mod = new AttackModifier;
-      $mod->DisplayName="Dex";
-      $mod->UniqueName="dex";
-      $mod->IsToggleable = False;
-      $mod->Modifier = 5;
-      $modifiers[$mod->UniqueName]=$mod;
-
-      $mod1 = new AttackModifier;
-      $mod1->DisplayName="BAB";
-      $mod1->UniqueName="bab";
-      $mod1->IsToggleable = False;
-      $mod1->Modifier = 3;
-      $modifiers[$mod1->UniqueName]=$mod1;
-
-      $mod2 = new AttackModifier;
-      $mod2->DisplayName="Weapon Attack Modifier";
-      $mod2->UniqueName="weaponAttackModifier";
-      $mod2->IsToggleable = False;
-      $mod2->Modifier = 1;
-      $modifiers[$mod2->UniqueName]=$mod2;
-
-      $mod3 = new AttackModifier;
-      $mod3->DisplayName="Weapon Focus";
-      $mod3->UniqueName="weaponFocus";
-      $mod3->IsToggleable = False;
-      $mod3->Modifier = 1;
-      $modifiers[$mod3->UniqueName]=$mod3;
-
-      $mod4 = new AttackModifier;
-      $mod4->DisplayName="Flanked?";
-      $mod4->UniqueName="flanked";
-      $mod4->IsToggleable = True;
-      $mod4->Modifier = 2;
-      $modifiers[$mod4->UniqueName]=$mod4;
-
-      $mod5 = new AttackModifier;
-      $mod5->DisplayName="Invisible?";
-      $mod5->UniqueName="invisible";
-      $mod5->IsToggleable = True;
-      $mod5->Modifier = 2;
-      $modifiers[$mod5->UniqueName]=$mod5;
-
-      $mod6 = new AttackModifier;
-      $mod6->DisplayName="Using Offhand?";
-      $mod6->UniqueName="offhand";
-      $mod6->IsToggleable = True;
-      $mod6->Modifier = -2;
-      $modifiers[$mod6->UniqueName]=$mod6;
-
-      return $modifiers;
-    }
-
     private function getCharacterModifiers($characterName, $allModifiers)
     {
       $characterModifiers = [];
       switch ($characterName) {
         case 'Thrynn':
-          $characterModifiers[count($characterModifiers)] = $allModifiers["dex"];
-          $characterModifiers[count($characterModifiers)] = $allModifiers["bab"];
-          $characterModifiers[count($characterModifiers)] = $allModifiers["weaponAttackModifier"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["dexThrynn"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["babThrynn"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["masterWorkDaggerThrynn"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["weaponFocus"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["flanked"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["invisible"];
-          $characterModifiers[count($characterModifiers)] = $allModifiers["offhand"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["offhandLightTwoWeaponFighting"];
           break;
 
-        default:
+        case 'Ea':
+          $characterModifiers[count($characterModifiers)] = $allModifiers["strEa"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["babEa"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["masterworkClubEa"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["rage"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["fatigued"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["offhandTwoWeaponFighting"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["flanked"];
           break;
       }
       return $characterModifiers;
+    }
+
+    private function generateModifiers()
+    {
+      $modifiers = [];
+
+      //Thrynns Stats
+      $mod = new AttackModifier("dexThrynn","Dex",False,5);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("babThrynn","BAB",False,3);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("masterWorkDaggerThrynn","Mastwork dagger?",False,1);
+      $modifiers[$mod->UniqueName]=$mod;
+
+      //Eas Stats
+      $mod = new AttackModifier("strEa","Strength",False,3);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("babEa","BAB",False,4);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("masterworkClubEa","Club?",False,1);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("rage","Rage?",True,2);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("fatigued","Fatigued?",True,-1);
+      $modifiers[$mod->UniqueName]=$mod;
+
+
+      //Feats
+      $mod = new AttackModifier("weaponFocus","Weapon Focus?",True,1);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("offhandLightTwoWeaponFighting","Using Offhand?",True,-2);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("offhandTwoWeaponFighting","Using Offhand?",True,-4);
+      $modifiers[$mod->UniqueName]=$mod;
+
+      //Conditions
+      $mod = new AttackModifier("flanked","Flanked?",True,2);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("invisible","Invisible?",True,2);
+      $modifiers[$mod->UniqueName]=$mod;
+
+      return $modifiers;
     }
 }
