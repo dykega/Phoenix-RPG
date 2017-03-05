@@ -76,7 +76,7 @@ class AttackCalculatorController extends Controller
       $modifiers[$mod->UniqueName]=$mod;
 
       //Eas Stats
-      $mod = new AttackModifier("strEa","Strength",False,3);
+      $mod = new AttackModifier("strEa","Strength",False,4);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("babEa","BAB",False,4);
       $modifiers[$mod->UniqueName]=$mod;
