@@ -1,16 +1,33 @@
 {% extends 'test/base.html.twig' %}
 
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('css/attackCalculator.css') }}">
+{% endblock %}
+
 {% block content %}
 <h1>{{ characterName }}</h1>
 <div class="btn-group" role="group" aria-label="...">
-  <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false">Left</button>
-  <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false">Middle</button>
-  <button type="button" class="btn btn-default" data-toggle="button" aria-pressed="false">Right</button>
-  <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">Single toggle</button
+  <button type="button" id="attackButton1" class="btn btn-default" data-toggle="button" aria-pressed="false" onclick="attackButtonToggled('attackButton1',2)">Flanked?</button>
+  <button type="button" id="attackButton2" class="btn btn-default" data-toggle="button" aria-pressed="false" onclick="attackButtonToggled('attackButton2',2)">Invisible?</button>
+  <button type="button" id="attackButton3" class="btn btn-default" data-toggle="button" aria-pressed="false" onclick="attackButtonToggled('attackButton3',-2)">Using Offhand?</button>
+  <p class="AttackModifierTotal" id="totalAttackModifier">10</p>
 </div>
-<ul class="nav nav-pills">
-  <li role="presentation" class="active"><a href="#">Home</a></li>
-  <li role="presentation"><a href="#">Profile</a></li>
-  <li role="presentation"><a href="#">Messages</a></li>
-</ul>
+<script>
+function attackButtonToggled(buttonID, value){
+  //this function is called before the class list is toggled
+  var total = Number(document.getElementById("totalAttackModifier").innerHTML);
+  //button is toggled off
+  if(document.getElementById(buttonID).classList.contains("active"))
+  {
+    total = total - value;
+  }
+  //button is toggled on
+  else
+  {
+    total = total + value;
+  }
+  document.getElementById("totalAttackModifier").innerHTML = total.toString();
+}
+</script>
 {% endblock %}
