@@ -2,26 +2,119 @@
 
 {% block stylesheets %}
   {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('css/initiativeTracker.css') }}">
 {% endblock %}
 
 {% block content %}
 <h1>Initiative Tracker</h1>
-<h2>Round: <span id="roundCounter">1</span></h2>
+<h2 id="roundTracker" class="nodisp">Round: <span id="roundCounter">1</span></h2>
 <br />
-<h2>
-<span class="label label-success" id="initiative-1">Character 1</span>
-<span class="label label-info" id="initiative-2">Character 2</span>
-<span class="label label-info" id="initiative-3">Character 3</span>
-<span class="label label-info" id="initiative-4">Character 4</span>
-<span class="label label-info" id="initiative-5">Character 5</span>
-<span class="label label-info" id="initiative-6">Character 6</span>
+
+<h2 id="characterList">
 </h2>
 <br />
-<p>
+<div class="container" style="width: 200px" id="addCharContainer">
+  <input type="name" id="inputName" class="form-control" placeholder="Character Name" required autofocus>
+  <div class="form-group">
+    <label for="sel1">Initiative:</label>
+    <select class="form-control" id="selInit">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+      <option>6</option>
+      <option>7</option>
+      <option>8</option>
+      <option>9</option>
+      <option>10</option>
+      <option>11</option>
+      <option>12</option>
+      <option>13</option>
+      <option>14</option>
+      <option>15</option>
+      <option>16</option>
+      <option>17</option>
+      <option>18</option>
+      <option>19</option>
+      <option>20</option>
+      <option>21</option>
+      <option>22</option>
+      <option>23</option>
+      <option>24</option>
+      <option>25</option>
+      <option>26</option>
+      <option>27</option>
+      <option>28</option>
+      <option>29</option>
+      <option>30</option>
+    </select>
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" onclick="characterAdd()">Add</button>
+</div>
+<br />
+<p id="btnNextTurn" class="nodisp">
 <button class="btn btn-lg btn-primary" onclick="clickNextInitiative()">Next Turn</button>
 </p>
-
+<br />
+<br />
+<button id="btnStartBattle" class="btn btn-lg btn-success" onclick="startBattle()">Begin Battle!</button>
 <script>
+var characterArray = [];
+
+function characterAdd(){
+  var name = document.getElementById("inputName").value;
+  var init = Number(document.getElementById("selInit").value);
+
+  if(name === ""){
+    return;
+  }
+
+  var character = {name: name, init: init};
+
+  var insertLocation = -1;
+
+  for (var i = 0; i < characterArray.length; i++){
+    if (characterArray[i].init < init && insertLocation === -1){
+      insertLocation = i;
+      break;
+    }
+  }
+
+  if (insertLocation === -1){
+    characterArray.push(character);
+    var charSpan = document.createElement('span');
+    charSpan.className = "label label-info";
+    charSpan.innerText = name + " - " + init;
+    
+    var characterContainer = document.getElementById("characterList");
+    characterContainer.appendChild(charSpan);    
+  }
+  else{
+    characterArray.splice(insertLocation, 0, character);
+    var charSpan = document.createElement('span');
+    charSpan.className = "label label-info";
+    charSpan.innerText = name + " - " + init;
+    
+    var characterContainer = document.getElementById("characterList");
+    characterContainer.insertBefore(charSpan, characterContainer.children[insertLocation]);
+  }
+
+  var charContainer = document.getElementById("characterList");
+  charContainer.children[0].className = "label label-success";
+  charContainer.children[1].className = "label label-info";
+}
+
+function startBattle(){
+  var node = document.getElementById("btnStartBattle");
+  node.parentNode.removeChild(node);
+  node = document.getElementById("addCharContainer");
+  node.parentNode.removeChild(node);
+
+  document.getElementById("btnNextTurn").className = "";
+  document.getElementById("roundTracker").className = "";
+}
+
 function clickNextInitiative(){
   var curNode = document.getElementsByClassName("label label-success")[0];
   curNode.className = "label label-info";
@@ -38,5 +131,6 @@ function clickNextInitiative(){
 
   nextNode.className = "label label-success";
 }
+
 </script>
 {% endblock %}
