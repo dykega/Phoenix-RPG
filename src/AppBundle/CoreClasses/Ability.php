@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\CoreClasses\;
+namespace AppBundle\CoreClasses;
 
 class Ability
 {
