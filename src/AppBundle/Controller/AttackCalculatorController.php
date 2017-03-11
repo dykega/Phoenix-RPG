@@ -15,6 +15,9 @@ class AttackCalculatorController extends Controller
      */
     public function showAction($characterName)
     {
+      $companionName = "";
+      $toggleableCompanionModifiers = [];
+      $baseCompanionModifier = 0;
       $templating = $this->container->get('templating');
       $allModifiers = $this->generateModifiers();
       $characterModifiers = $this->getCharacterModifiers($characterName, $allModifiers);
@@ -28,10 +31,27 @@ class AttackCalculatorController extends Controller
           $toggleableModifiers[count($toggleableModifiers)] = $mod;
         }
       }
+      if ($characterName == "Beren") {
+          $companionName = "Gwahir";
+          $companionModifiers = $this->getCharacterModifiers($companionName, $allModifiers);
+          $toggleableCompanionModifiers = [];
+          $baseCompanionModifier = 0;
+          foreach ($companionModifiers as $mod) {
+              if(!$mod->IsToggleable){
+                $baseCompanionModifier += $mod->Modifier;
+              }
+              else{
+                $toggleableCompanionModifiers[count($toggleableCompanionModifiers)] = $mod;
+              }
+          }
+      }
       $html = $templating->render('test/AttackCalculator/AttackCalculator.html.twig', array(
             'characterName' => $characterName,
             'toggleableModifiers' => $toggleableModifiers,
-            'baseModifier' =>$baseModifier
+            'baseModifier' =>$baseModifier,
+            'companionName' => $companionName,
+            'toggleableCompanionModifiers' => $toggleableCompanionModifiers,
+            'baseCompanionModifier' => $baseCompanionModifier
         ));
       return new Response($html);
     }
@@ -69,6 +89,13 @@ class AttackCalculatorController extends Controller
             $characterModifiers[count($characterModifiers)] = $allModifiers["rapidShot"];
             $characterModifiers[count($characterModifiers)] = $allModifiers["pointBlankShot"];
             $characterModifiers[count($characterModifiers)] = $allModifiers["flanked"];
+          break;
+
+          case 'Gwahir':
+            $characterModifiers[count($characterModifiers)] = $allModifiers["strGwahir"];
+            $characterModifiers[count($characterModifiers)] = $allModifiers["babGwahir"];
+            $characterModifiers[count($characterModifiers)] = $allModifiers["biteAttackGwahir"];
+            $characterModifiers[count($characterModifiers)] = $allModifiers["animalFocusStr"];
           break;
       }
       return $characterModifiers;
@@ -108,6 +135,16 @@ class AttackCalculatorController extends Controller
       $mod = new AttackModifier("masterWorkArrow","+1 Arrow?",True,1);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("animalFocusDex","Animal Focus Dex?",True,1);
+      $modifiers[$mod->UniqueName]=$mod;
+
+      //Gwahir
+      $mod = new AttackModifier("strGwahir","Str",False,1);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("babGwahir","BAB",False,3);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("biteAttackGwahir","Bite attack?",True,1);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("animalFocusStr","Animal Focus Str?",True,1);
       $modifiers[$mod->UniqueName]=$mod;
 
 

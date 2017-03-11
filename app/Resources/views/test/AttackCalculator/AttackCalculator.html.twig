@@ -9,14 +9,25 @@
 <h1>{{ characterName }}</h1>
 <div class="btn-group" role="group" aria-label="...">
 {% for mod in toggleableModifiers %}
-  <button type="button" id="{{"attackButton" ~ mod.UniqueName}}" class="btn btn-default" data-toggle="button" aria-pressed="false" onclick="attackButtonToggled('attackButton{{mod.UniqueName}}',{{mod.Modifier}})">{{mod.DisplayName}}</button>
+  <button type="button" id="{{"attackButton" ~ mod.UniqueName}}" class="btn btn-default" data-toggle="button" aria-pressed="false" onclick="attackButtonToggled('attackButton{{mod.UniqueName}}',{{mod.Modifier}},'totalAttackModifier')">{{mod.DisplayName}}</button>
 {% endfor %}
   <p class="AttackModifierTotal" id="totalAttackModifier">{{baseModifier}}</p>
 </div>
+
+{% if companionName != "" %}
+<h1>{{ companionName }}</h1>
+<div class="btn-group" role="group" aria-label="...">
+{% for mod in toggleableCompanionModifiers %}
+  <button type="button" id="{{"attackButton" ~ mod.UniqueName}}" class="btn btn-default" data-toggle="button" aria-pressed="false" onclick="attackButtonToggled('attackButton{{mod.UniqueName}}',{{mod.Modifier}},'totalCompanionAttackModifier')">{{mod.DisplayName}}</button>
+{% endfor %}
+  <p class="AttackModifierTotal" id="totalCompanionAttackModifier">{{baseCompanionModifier}}</p>
+</div>
+{% endif %}
+
 <script>
-function attackButtonToggled(buttonID, value){
+function attackButtonToggled(buttonID, value, totalID){
   //this function is called before the class list is toggled
-  var total = Number(document.getElementById("totalAttackModifier").innerHTML);
+  var total = Number(document.getElementById(totalID).innerHTML);
   //button is toggled off
   if(document.getElementById(buttonID).classList.contains("active"))
   {
@@ -26,7 +37,7 @@ function attackButtonToggled(buttonID, value){
   {
     total = total + value;
   }
-  document.getElementById("totalAttackModifier").innerHTML = total.toString();
+  document.getElementById(totalID).innerHTML = total.toString();
 }
 </script>
 {% endblock %}
