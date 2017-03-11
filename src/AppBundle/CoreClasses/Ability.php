@@ -16,6 +16,11 @@ class Ability
 
     function Modifier()
     {
-        return ($this->BaseScore - 10 + $this->Temp) / 2;
+        return floor(($this->BaseScore - 10 + $this->Temp) / 2);
+    }
+
+    function TotalScore()
+    {
+        return $this->BaseScore + $this->Temp;
     }
 }

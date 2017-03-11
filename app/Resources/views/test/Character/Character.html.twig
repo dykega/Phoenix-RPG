@@ -1,7 +1,34 @@
 {% extends 'test/base.html.twig' %}
 
 {% block content %}
-<h1>{{ characterName }}</h1>
+<h1>{{ character.Name }}</h1>
+<table>
+    <tr>
+        <th>
+            Ability
+        </th>
+        <th>
+            Score
+        </th>
+        <th>
+            Modifier
+        </th>
+    </tr>
+    {% for ability in character.Abilities %}
+    <tr>
+        <td>
+            {{ability.Name}}
+        </td>
+        <td>
+            {{ability.TotalScore}}
+        </td>
+        <td>
+            {{ability.Modifier}}
+        <td>
+    <tr>
+    {% endfor %}
+
+</table>
 
 
 {% endblock %}

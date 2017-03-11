@@ -126,7 +126,9 @@ class AttackCalculatorController extends Controller
       $modifiers[$mod->UniqueName]=$mod;
 
       //Beren
-      $mod = new AttackModifier("dexBeren","Dex",False,4);
+      $mod = new AttackModifier("dexBeren","Dex",True,4);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("strBeren","Str",True,0);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("babBeren","BAB",False,3);
       $modifiers[$mod->UniqueName]=$mod;
