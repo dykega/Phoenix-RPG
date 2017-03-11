@@ -59,6 +59,17 @@ class AttackCalculatorController extends Controller
           $characterModifiers[count($characterModifiers)] = $allModifiers["offhandTwoWeaponFighting"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["flanked"];
           break;
+
+          case 'Beren':
+            $characterModifiers[count($characterModifiers)] = $allModifiers["dexBeren"];
+            $characterModifiers[count($characterModifiers)] = $allModifiers["babBeren"];
+            $characterModifiers[count($characterModifiers)] = $allModifiers["masterWorkBowBeren"];
+            $characterModifiers[count($characterModifiers)] = $allModifiers["masterWorkArrow"];
+            $characterModifiers[count($characterModifiers)] = $allModifiers["animalFocusDex"];
+            $characterModifiers[count($characterModifiers)] = $allModifiers["rapidShot"];
+            $characterModifiers[count($characterModifiers)] = $allModifiers["pointBlankShot"];
+            $characterModifiers[count($characterModifiers)] = $allModifiers["flanked"];
+          break;
       }
       return $characterModifiers;
     }
@@ -87,6 +98,18 @@ class AttackCalculatorController extends Controller
       $mod = new AttackModifier("fatigued","Fatigued?",True,-1);
       $modifiers[$mod->UniqueName]=$mod;
 
+      //Beren
+      $mod = new AttackModifier("dexBeren","Dex",False,4);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("babBeren","BAB",False,3);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("masterWorkBowBeren","Mastwork bow?",True,1);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("masterWorkArrow","+1 Arrow?",True,1);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("animalFocusDex","Animal Focus Dex?",True,1);
+      $modifiers[$mod->UniqueName]=$mod;
+
 
       //Feats
       $mod = new AttackModifier("weaponFocus","Weapon Focus?",True,1);
@@ -94,6 +117,10 @@ class AttackCalculatorController extends Controller
       $mod = new AttackModifier("offhandLightTwoWeaponFighting","Using Offhand?",True,-2);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("offhandTwoWeaponFighting","Using Offhand?",True,-4);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("rapidShot","Rapid Shot?",True,-2);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("pointBlankShot","<30 ft?",True,1);
       $modifiers[$mod->UniqueName]=$mod;
 
       //Conditions
