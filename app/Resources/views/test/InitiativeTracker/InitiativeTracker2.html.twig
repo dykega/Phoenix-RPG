@@ -1,0 +1,42 @@
+{% extends 'test/base.html.twig' %}
+
+{% block stylesheets %}
+  {{ parent() }}
+{% endblock %}
+
+{% block content %}
+<h1>Initiative Tracker</h1>
+<h2>Round: <span id="roundCounter">1</span></h2>
+<br />
+<h2>
+<span class="label label-success" id="initiative-1">Character 1</span>
+<span class="label label-info" id="initiative-2">Character 2</span>
+<span class="label label-info" id="initiative-3">Character 3</span>
+<span class="label label-info" id="initiative-4">Character 4</span>
+<span class="label label-info" id="initiative-5">Character 5</span>
+<span class="label label-info" id="initiative-6">Character 6</span>
+</h2>
+<br />
+<p>
+<button class="btn btn-lg btn-primary" onclick="clickNextInitiative()">Next Turn</button>
+</p>
+
+<script>
+function clickNextInitiative(){
+  var curNode = document.getElementsByClassName("label label-success")[0];
+  curNode.className = "label label-info";
+  
+  var nextNode = curNode.nextElementSibling;
+  if (nextNode === null){
+    nextNode = document.getElementsByClassName("label label-info")[0];
+
+    var roundCounter = document.getElementById("roundCounter");
+    var currRound = Number(roundCounter.innerHTML);
+    currRound++;
+    roundCounter.innerHTML = currRound;
+  }
+
+  nextNode.className = "label label-success";
+}
+</script>
+{% endblock %}
