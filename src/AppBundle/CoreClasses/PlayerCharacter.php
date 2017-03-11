@@ -22,5 +22,4 @@ class PlayerCharacter
     Public $Saves;
     Public $AC;
     Public $Spells;
-
 }
