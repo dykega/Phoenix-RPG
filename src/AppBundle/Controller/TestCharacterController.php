@@ -28,24 +28,53 @@ class TestCharacterController extends Controller
     {
         $character = new PlayerCharacter();
         $character->Name = $characterName;
-        $ab = "Abilities";
-        $t = "dex";
-        $x = "BaseScore";
         switch ($character->Name) {
             case 'Thrynn':
                 $abilities =
                 [
-                    "str"=>new Ability("str",10,0),
-                    "dex"=>new Ability("dex",21,0),
-                    "con"=>new Ability("con",12,0),
-                    "int"=>new Ability("int",12,0),
-                    "wis"=>new Ability("wis",8,0),
-                    "cha"=>new Ability("cha",11,0)
+                    "str"=>new Ability("Str",10,0),
+                    "dex"=>new Ability("Dex",21,0),
+                    "con"=>new Ability("Con",12,0),
+                    "int"=>new Ability("Int",12,0),
+                    "wis"=>new Ability("Wis",8,0),
+                    "cha"=>new Ability("Cha",11,0)
                 ];
                 $character->Abilities = $abilities;
+                $character->Alignment="Neutral Good";
+                break;
+            case 'Test':
+                $abilities =
+                [
+                    "str"=>new Ability("Str",10,0),
+                    "dex"=>new Ability("Dex",20,0),
+                    "con"=>new Ability("Con",12,0),
+                    "int"=>new Ability("Int",12,0),
+                    "wis"=>new Ability("Wis",8,0),
+                    "cha"=>new Ability("Cha",11,0)
+                ];
+                $character->Abilities = $abilities;
+                $character->Alignment="Neutral Good";
+                $levelOne =
+                [
+                        "Feats"=>1
+                ];
+                $levelTwo = [];
+                $levelThree =
+                [
+                    "Feats"=>1
+                ];
+                $levelFour =
+                [
+                    "AbilityScore"=>1,
+                    "TestThing"=>"something else"
+                ];
+                $character->LevelUpTable = [$levelOne,$levelTwo,$levelThree,$levelFour];
                 break;
         }
-        $character->Name = $character->$ab[$t]->$x;
+        //$ab = "Abilities";
+        //$t = "dex";
+        //$x = "BaseScore";
+        //$character->Name = call_user_func_array([$character->$ab[$t],"Modifier"],[]);
         return $character;
     }
 }
