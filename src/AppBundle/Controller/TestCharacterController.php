@@ -42,34 +42,6 @@ class TestCharacterController extends Controller
                 $character->Abilities = $abilities;
                 $character->Alignment="Neutral Good";
                 break;
-            case 'Test':
-                $abilities =
-                [
-                    "str"=>new Ability("Str",10,0),
-                    "dex"=>new Ability("Dex",20,0),
-                    "con"=>new Ability("Con",12,0),
-                    "int"=>new Ability("Int",12,0),
-                    "wis"=>new Ability("Wis",8,0),
-                    "cha"=>new Ability("Cha",11,0)
-                ];
-                $character->Abilities = $abilities;
-                $character->Alignment="Neutral Good";
-                $levelOne =
-                [
-                        "Feats"=>1
-                ];
-                $levelTwo = [];
-                $levelThree =
-                [
-                    "Feats"=>1
-                ];
-                $levelFour =
-                [
-                    "AbilityScore"=>1,
-                    "TestThing"=>"something else"
-                ];
-                $character->LevelUpTable = [$levelOne,$levelTwo,$levelThree,$levelFour];
-                break;
         }
         //$ab = "Abilities";
         //$t = "dex";

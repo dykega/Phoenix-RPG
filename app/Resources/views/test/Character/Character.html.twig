@@ -31,5 +31,31 @@
 
 </table>
 
+<table>
+    <tr>
+        <th>
+            Skill
+        </th>
+        <th>
+            Modifier
+        </th>
+    </tr>
+    {% for skill in character.Skills %}
+    <tr>
+        <td>
+            {{skill.Name}}
+        </td>
+        <td>
+            {% if character.canPerformSkill(skill.Name) %}
+            {{ character.getSkillBonus(skill.Name) }}
+            {% else %}
+            -
+            {% endif %}
+        <td>
+    <tr>
+    {% endfor %}
+
+</table>
+
 
 {% endblock %}
