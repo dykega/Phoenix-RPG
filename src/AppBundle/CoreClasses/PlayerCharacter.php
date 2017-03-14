@@ -35,6 +35,11 @@ class PlayerCharacter
     Public $Speed;
     Public $BaB;
     Public $Inventory;
+
+    //Int
+    //The armor check penalty (negative number)
+    Public $ArmorCheckPenalty=0;
+
     Public $CMB;
     Public $Saves;
     Public $AC;
@@ -56,6 +61,11 @@ class PlayerCharacter
             return null;
         }
         $skill = $this->Skills[$skillName];
+
+        //if it's a calculated skill, then return that calculated value
+        if ($skill->SkillClassLevelCaluclation) {
+            return $this->calculateSkillClassLevelBonus($skill);
+        }
         $ranks = $skill->Ranks;
 
         //get the ability modifier to add to the score
@@ -63,7 +73,41 @@ class PlayerCharacter
 
         //get the class skill bonus to add to the score
         $classSkillBonus = 0;
-        return $ranks + $abilityAddition + $classSkillBonus;
+        if ($ranks > 0) {
+            foreach ($this->Classes as $class) {
+                if (in_array($skillName,$class->ClassSkills)) {
+                    $classSkillBonus = 3;
+                }
+            }
+        }
+
+        //calculate armor check penalty
+        $armorCheckPen = 0;
+        if ($skill->ArmorCheckPenaltyApplies)
+        {
+            $armorCheckPen = $this->ArmorCheckPenalty;
+        }
+
+        //get any misc bonuses
+        $miscBonus = $skill->MiscBonus;
+
+        return ($ranks + $abilityAddition + $classSkillBonus + $armorCheckPen + $miscBonus);
+    }
+
+    //Returns the skill bonus for a calculated skill based on another skill
+    //and a class level.
+    //skill: String - the skill to check
+    private function calculateSkillClassLevelBonus($skill)
+    {
+        $baseSkillBonus = 0;
+        $classLevel = 0;
+        if (array_key_exists($skill->OtherSkillName,$this->Skills)) {
+            $baseSkillBonus = $this->getSkillBonus($this->Skills[$skill->OtherSkillName]->Name);
+        }
+        if (array_key_exists($skill->ClassName,$this->Classes)) {
+            $classLevel = $this->Classes[$skill->ClassName]->Level;
+        }
+        return $baseSkillBonus + floor($classLevel / 2);
     }
 
     //returns whether the skill can be performed.  This means that the skill can't
@@ -78,6 +122,10 @@ class PlayerCharacter
         }
         else {
             $ranks = $this->Skills[$skillName]->Ranks;
+        }
+        //if this is a calculated skill, return whether the base skill can be performed
+        if ($this->Skills[$skillName]->SkillClassLevelCaluclation) {
+            return $this->canPerformSkill($this->Skills[$skillName]->OtherSkillName);
         }
 
         //if there are no ranks in this skill, and you can't do it untrained,
@@ -112,10 +160,13 @@ class PlayerCharacter
         $skillAbilities = ["dex","int","cha","str","int","cha","dex","cha","dex","dex","cha","wis","cha","int",
         "int","int","int","int","int","int","int","int","int","int","wis","cha","wis","dex","wis","dex","int",
         "dex","wis","str","cha"];
+        $armorCheckApplies = [TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,
+        FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,
+        FALSE,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE];
 
         for ($i = 0; $i < count($skills); $i++)
         {
-            $skill = new Skill($skills[$i],$skillAbilities[$i]);
+            $skill = new Skill($skills[$i],$skillAbilities[$i],$armorCheckApplies[$i]);
             $this->Skills[$skill->Name]=$skill;
         }
 

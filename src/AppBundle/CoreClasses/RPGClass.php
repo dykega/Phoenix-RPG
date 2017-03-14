@@ -9,14 +9,12 @@ class RPGClass
     Public $SkillsPerLevel;
     Public $ClassTable;
 
-    function __construct($Name, $BaseScore, $Temp) {
-      $this->Name=$Name;
-      $this->BaseScore=$BaseScore;
-      $this->Temp=$Temp;
-   }
+    //Array
+    //Contains strings whic are names of skils which are class skills
+    PUblic $ClassSkills;
 
-    function Modifier()
-    {
-        return ($this->BaseScore - 10 + $this->Temp) / 2;
-    }
+    function __construct($name, $classSkills) {
+      $this->Name=$name;
+      $this->ClassSkills = $classSkills;
+   }
 }
