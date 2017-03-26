@@ -2,8 +2,37 @@
   display: none;
 }
 
+#characterList{
+    font-size: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+
+.characterSection{
+    display:inline-block;
+}
+
+.characterSection .initSection {
+    display:block;
+}
+
 .characterRemoveIcon {
-    margin-top: -15px;
+    margin-top: -5px;
     margin-right: -13px;
     margin-left: 15px;
+    float: right;
+}
+
+div.dmgSection{
+    width: 100%;
+    margin:auto;
+    margin-bottom: 15px;
+}
+
+#characterList div.dmgSection input.dmgInput{
+    width: 50px;
 }

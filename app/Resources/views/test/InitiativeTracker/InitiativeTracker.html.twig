@@ -10,8 +10,26 @@
 <h2 id="roundTracker" class="nodisp">Round: <span id="roundCounter">1</span></h2>
 <br />
 
-<h2 id="characterList">
-</h2>
+<div id="characterList" class="form-inline">
+    <!-- <div class="characterSection">
+        <div class="label label-success initSection">
+            <span>Ea - 1</span>
+            <a class="btn btn-danger btn-xs characterRemoveIcon" onclick="removeCharacter('character1');" aria-label="Delete">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </a>
+        </div>
+        <div class="input-group dmgSection">
+            <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-addon">0</div>
+                  <input type="text" class="form-control dmgInput">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        </div>
+    </div> -->
+</div>
+
 <br />
 <div class="container" style="width: 200px" id="addCharContainer">
   <input type="name" id="inputName" class="form-control" placeholder="Character Name" required autofocus>
@@ -64,66 +82,157 @@ var characterArray = [];
 var characterNumber = 0;
 
 function characterAdd(){
-  var name = document.getElementById("inputName").value;
-  document.getElementById("inputName").value = "";
-  var init = Number(document.getElementById("selInit").value);
-  characterNumber = characterNumber + 1;
-  var characterID="character";
-  characterID = characterID + characterNumber;
+    var name = document.getElementById("inputName").value;
+    document.getElementById("inputName").value = "";
+    var init = Number(document.getElementById("selInit").value);
+    characterNumber = characterNumber + 1;
+    var characterID="character";
+    characterID = characterID + characterNumber;
 
-  var onClickFunc = "removeCharacter('" + characterID + "');"
+    var onClickFunc = "removeCharacter('" + characterID + "');"
 
-  if(name === ""){
-    return;
-  }
-
-  var character = {
-      name: name,
-      init: init,
-      dmgTaken: 0,
-      id:characterID
-  };
-
-  var insertLocation = -1;
-
-  for (var i = 0; i < characterArray.length; i++){
-    if (characterArray[i].init < init && insertLocation === -1){
-      insertLocation = i;
-      break;
+    if(name === ""){
+      return;
     }
-  }
 
-  if (insertLocation === -1){
-    characterArray.push(character);
-    var charSpan = document.createElement('span');
-    var dmgSec = document.createElement('div');
-    charSpan.className = "label label-info";
-    charSpan.innerText = name + " - " + init;
-    charSpan.innerHTML = charSpan.innerHTML + '<a class="btn btn-danger btn-xs characterRemoveIcon" onClick="' + onClickFunc + '" aria-label="Delete"><i class="fa fa-times" aria-hidden="true"></i></a>';
-    charSpan.id = characterID;
+    var character = {
+        name: name,
+        init: init,
+        dmgTaken: 0,
+        id:characterID
+    };
 
-    dmgSec.innerHTML = '<div class="input-group"><input type="text" class="form-control" placeholder="Recipients username" aria-describedby="basic-addon2"><span class="input-group-addon" id="basic-addon2"@example.com</span></div>';
+    var insertLocation = -1;
 
-    var characterContainer = document.getElementById("characterList");
-    characterContainer.appendChild(charSpan);
-  }
-  else{
+    for (var i = 0; i < characterArray.length; i++){
+      if (characterArray[i].init < init && insertLocation === -1){
+        insertLocation = i;
+        break;
+      }
+    }
+
+    if (insertLocation === -1){
+        insertLocation = characterArray.length;
+    }
+
     characterArray.splice(insertLocation, 0, character);
-    var charSpan = document.createElement('span');
-    charSpan.className = "label label-info";
-    charSpan.innerText = name + " - " + init;
-    charSpan.innerHTML = charSpan.innerHTML + '<a class="btn btn-danger btn-xs characterRemoveIcon" onClick="' + onClickFunc + '" aria-label="Delete"><i class="fa fa-times" aria-hidden="true"></i></a>';
-    charSpan.id = characterID;
+
+    var characterSection = document.createElement("div");
+    characterSection.className = "characterSection";
+    characterSection.id = characterID;
+
+    var initSection = document.createElement('div');
+    initSection.className="initSection label";
+    if (insertLocation === 0) {
+        initSection.classList.add("label-success");
+    }
+    else{
+        initSection.classList.add("label-info");
+    }
+
+    var nameSpan = document.createElement('span');
+    nameSpan.innerText = name + " - " + init;
+
+    var removeIcon = document.createElement('a');
+    removeIcon.className = "btn btn-danger btn-xs characterRemoveIcon";
+    if (removeIcon.addEventListener) { // For all major browsers, except IE 8 and earlier
+        removeIcon.addEventListener("click", function(){ removeCharacter(characterID); });
+    }
+    else if (removeIcon.attachEvent) { // For IE 8 and earlier versions
+        removeIcon.attachEvent("onclick", function(){ removeCharacter(characterID); });
+    }
+    removeIcon.innerHTML ='<i class="fa fa-times" aria-hidden="true"></i>';
+
+    initSection.appendChild(nameSpan);
+    initSection.appendChild(removeIcon);
+
+    var dmgTotalID = characterID + "DmgTotal";
+    var dmgAddID = characterID + "DmgAdd";
+
+    var dmgSection = document.createElement('div');
+    dmgSection.className = "input-group dmgSection";
+
+    var formGrp = document.createElement('div');
+    formGrp.className = "form-group";
+
+    var inputGrp = document.createElement('div');
+    inputGrp.className = "input-group";
+
+    var dmgDiv = document.createElement('div');
+    dmgDiv.id = dmgTotalID;
+    dmgDiv.className = "input-group-addon";
+    dmgDiv.innerText = character.dmgTaken;
+
+    var dmgInput = document.createElement('input');
+    dmgInput.id = dmgAddID;
+    dmgInput.type = "text";
+    dmgInput.className = "form-control dmgInput";
+    dmgInput.placeholder ="-";
+
+    var addButton = document.createElement('button');
+    addButton.className = "btn btn-primary";
+    addButton.innerHTML = '<i class="fa fa-plus" aria-hidden="true"></i>';
+    if (addButton.addEventListener) {                    // For all major browsers, except IE 8 and earlier
+        addButton.addEventListener("click", function(){ addDamage(dmgTotalID, dmgAddID,insertLocation); });
+    }
+    else if (addButton.attachEvent) {                  // For IE 8 and earlier versions
+        addButton.attachEvent("onclick", function(){ addDamage(dmgTotalID, dmgAddID,insertLocation); });
+    }
+
+    inputGrp.appendChild(dmgDiv);
+    inputGrp.appendChild(dmgInput);
+    formGrp.appendChild(inputGrp);
+    dmgSection.appendChild(formGrp);
+    dmgSection.appendChild(addButton);
+    characterSection.appendChild(initSection);
+    characterSection.appendChild(dmgSection);
 
     var characterContainer = document.getElementById("characterList");
-    characterContainer.insertBefore(charSpan, characterContainer.children[insertLocation]);
-  }
+    characterContainer.insertBefore(characterSection, characterContainer.children[insertLocation]);
 
-  var charContainer = document.getElementById("characterList");
-  charContainer.children[0].className = "label label-success";
-  if (charContainer.children.length > 1) {
-      charContainer.children[1].className = "label label-info";
-  }
+
+    if (characterContainer.children.length > 1 && insertLocation === 0) {
+        makeCharacterNotActive(characterContainer.children[1].id);
+    }
+}
+
+function makeCharacterActive(characterSecID){
+    //this assumes that the initiative section is the first child in the child section
+    var initSection = document.getElementById(characterSecID).children[0];
+    if (initSection.classList.contains('label-info')) {
+        initSection.classList.remove('label-info');
+    }
+    if (!initSection.classList.contains('label-success')) {
+        initSection.classList.add('label-success');
+    }
+}
+
+function makeCharacterNotActive(characterSecID){
+    //this assumes that the initiative section is the first child in the child section
+    var initSection = document.getElementById(characterSecID).children[0];
+    if (initSection.classList.contains('label-success')) {
+        initSection.classList.remove('label-success');
+    }
+    if (!initSection.classList.contains('label-info')) {
+        initSection.classList.add('label-info');
+    }
+}
+
+function findActiveCharacter(){
+    var characterContainer = document.getElementById("characterList");
+    var curNode;
+    for (var i = 0; i < characterContainer.children.length; i++) {
+        //this assumes that the initiative section is the first child in the child section
+        if (characterContainer.children[i].children[0].classList.contains("label-success")) {
+            curNode = characterContainer.children[i];
+        }
+    }
+    return curNode;
+}
+
+function isCharacterActive(characterSecID){
+    //this assumes that the initiative section is the first child in the child section
+    return document.getElementById(characterSecID).children[0].classList.contains("label-success");
 }
 
 function startBattle(){
@@ -137,16 +246,18 @@ function startBattle(){
 }
 
 function clickNextInitiative(){
-  var curNode = document.getElementsByClassName("label label-success")[0];
-  curNode.className = "label label-info";
+    var characterContainer = document.getElementById("characterList");
+    var curNode = findActiveCharacter();
 
-  var nextNode = curNode.nextElementSibling;
-  if (nextNode === null){
-    nextNode = document.getElementsByClassName("label label-info")[0];
-    nextRound();
-  }
+    makeCharacterNotActive(curNode.id);
 
-  nextNode.className = "label label-success";
+    var nextNode = curNode.nextElementSibling;
+    if (nextNode === null){
+        nextNode = characterContainer.children[0];
+        nextRound();
+    }
+
+    makeCharacterActive(nextNode.id);
 }
 
 function nextRound(){
@@ -160,7 +271,9 @@ function removeCharacter(id){
     var index = getCharacterByID(id);
     var newIndex = index;
     var newFocus = false;
-    if (document.getElementById(characterArray[index].id).classList.contains("label-success")) {
+    var characterContainer = document.getElementById("characterList");
+    //
+    if (isCharacterActive(id)) {
         newFocus = true;
     }
     characterArray.splice(index,1);
@@ -169,9 +282,20 @@ function removeCharacter(id){
     if (newFocus && characterArray.length > 0) {
         if (newIndex > characterArray.length-1) {
             newIndex = 0;
+            nextRound();
         }
-        document.getElementById(characterArray[newIndex].id).className = "label label-success";
+        makeCharacterActive(characterArray[newIndex].id);
     }
+}
+
+function addDamage(totalDmgID,addDmgID,index){
+    var totalDmg = parseInt(document.getElementById(totalDmgID).innerText);
+    totalDmg = totalDmg + parseInt(document.getElementById(addDmgID).value);
+    if (!isNaN(totalDmg)) {
+        document.getElementById(totalDmgID).innerText =  totalDmg;
+        characterArray[index].dmgTaken = totalDmg;
+    }
+    document.getElementById(addDmgID).value = "";
 }
 
 function getCharacterByID(id){
