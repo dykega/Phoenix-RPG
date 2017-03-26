@@ -61,16 +61,28 @@
 <button id="btnStartBattle" class="btn btn-lg btn-success" onclick="startBattle()">Begin Battle!</button>
 <script>
 var characterArray = [];
+var characterNumber = 0;
 
 function characterAdd(){
   var name = document.getElementById("inputName").value;
+  document.getElementById("inputName").value = "";
   var init = Number(document.getElementById("selInit").value);
+  characterNumber = characterNumber + 1;
+  var characterID="character";
+  characterID = characterID + characterNumber;
+
+  var onClickFunc = "removeCharacter('" + characterID + "');"
 
   if(name === ""){
     return;
   }
 
-  var character = {name: name, init: init};
+  var character = {
+      name: name,
+      init: init,
+      dmgTaken: 0,
+      id:characterID
+  };
 
   var insertLocation = -1;
 
@@ -84,25 +96,34 @@ function characterAdd(){
   if (insertLocation === -1){
     characterArray.push(character);
     var charSpan = document.createElement('span');
+    var dmgSec = document.createElement('div');
     charSpan.className = "label label-info";
     charSpan.innerText = name + " - " + init;
-    
+    charSpan.innerHTML = charSpan.innerHTML + '<a class="btn btn-danger btn-xs characterRemoveIcon" onClick="' + onClickFunc + '" aria-label="Delete"><i class="fa fa-times" aria-hidden="true"></i></a>';
+    charSpan.id = characterID;
+
+    dmgSec.innerHTML = '<div class="input-group"><input type="text" class="form-control" placeholder="Recipients username" aria-describedby="basic-addon2"><span class="input-group-addon" id="basic-addon2"@example.com</span></div>';
+
     var characterContainer = document.getElementById("characterList");
-    characterContainer.appendChild(charSpan);    
+    characterContainer.appendChild(charSpan);
   }
   else{
     characterArray.splice(insertLocation, 0, character);
     var charSpan = document.createElement('span');
     charSpan.className = "label label-info";
     charSpan.innerText = name + " - " + init;
-    
+    charSpan.innerHTML = charSpan.innerHTML + '<a class="btn btn-danger btn-xs characterRemoveIcon" onClick="' + onClickFunc + '" aria-label="Delete"><i class="fa fa-times" aria-hidden="true"></i></a>';
+    charSpan.id = characterID;
+
     var characterContainer = document.getElementById("characterList");
     characterContainer.insertBefore(charSpan, characterContainer.children[insertLocation]);
   }
 
   var charContainer = document.getElementById("characterList");
   charContainer.children[0].className = "label label-success";
-  charContainer.children[1].className = "label label-info";
+  if (charContainer.children.length > 1) {
+      charContainer.children[1].className = "label label-info";
+  }
 }
 
 function startBattle(){
@@ -118,18 +139,50 @@ function startBattle(){
 function clickNextInitiative(){
   var curNode = document.getElementsByClassName("label label-success")[0];
   curNode.className = "label label-info";
-  
+
   var nextNode = curNode.nextElementSibling;
   if (nextNode === null){
     nextNode = document.getElementsByClassName("label label-info")[0];
+    nextRound();
+  }
 
+  nextNode.className = "label label-success";
+}
+
+function nextRound(){
     var roundCounter = document.getElementById("roundCounter");
     var currRound = Number(roundCounter.innerHTML);
     currRound++;
     roundCounter.innerHTML = currRound;
-  }
+}
 
-  nextNode.className = "label label-success";
+function removeCharacter(id){
+    var index = getCharacterByID(id);
+    var newIndex = index;
+    var newFocus = false;
+    if (document.getElementById(characterArray[index].id).classList.contains("label-success")) {
+        newFocus = true;
+    }
+    characterArray.splice(index,1);
+    document.getElementById(id).remove();
+
+    if (newFocus && characterArray.length > 0) {
+        if (newIndex > characterArray.length-1) {
+            newIndex = 0;
+        }
+        document.getElementById(characterArray[newIndex].id).className = "label label-success";
+    }
+}
+
+function getCharacterByID(id){
+    var index;
+    for (var i = 0; i < characterArray.length; i++) {
+        if (characterArray[i].id === id) {
+            index = i;
+        }
+    }
+
+    return index;
 }
 
 </script>

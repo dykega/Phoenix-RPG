@@ -35,11 +35,11 @@ class TestCharacterController extends Controller
                 $abilities =
                 [
                     "str"=>new Ability("Str",10,0),
-                    "dex"=>new Ability("Dex",21,0),
+                    "dex"=>new Ability("Dex",20,0),
                     "con"=>new Ability("Con",12,0),
                     "int"=>new Ability("Int",12,0),
                     "wis"=>new Ability("Wis",8,0),
-                    "cha"=>new Ability("Cha",11,0)
+                    "cha"=>new Ability("Cha",12,0)
                 ];
                 $character->Abilities = $abilities;
                 $character->Alignment="Neutral Good";
