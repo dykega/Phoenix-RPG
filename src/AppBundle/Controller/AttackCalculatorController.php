@@ -73,7 +73,7 @@ class AttackCalculatorController extends Controller
         case 'Ea':
           $characterModifiers[count($characterModifiers)] = $allModifiers["strEa"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["babEa"];
-          $characterModifiers[count($characterModifiers)] = $allModifiers["masterworkClubEa"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["masterworkWeaponEa"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["rage"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["fatigued"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["offhandTwoWeaponFighting"];
@@ -94,8 +94,9 @@ class AttackCalculatorController extends Controller
           case 'Gwahir':
             $characterModifiers[count($characterModifiers)] = $allModifiers["strGwahir"];
             $characterModifiers[count($characterModifiers)] = $allModifiers["babGwahir"];
-            $characterModifiers[count($characterModifiers)] = $allModifiers["biteAttackGwahir"];
+            $characterModifiers[count($characterModifiers)] = $allModifiers["biteTalonAttackGwahir"];
             $characterModifiers[count($characterModifiers)] = $allModifiers["animalFocusStr"];
+            $characterModifiers[count($characterModifiers)] = $allModifiers["flanked"];
           break;
       }
       return $characterModifiers;
@@ -118,7 +119,7 @@ class AttackCalculatorController extends Controller
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("babEa","BAB",False,4);
       $modifiers[$mod->UniqueName]=$mod;
-      $mod = new AttackModifier("masterworkClubEa","Club?",False,1);
+      $mod = new AttackModifier("masterworkWeaponEa","Master work weapon?",False,1);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("rage","Rage?",True,2);
       $modifiers[$mod->UniqueName]=$mod;
@@ -144,7 +145,7 @@ class AttackCalculatorController extends Controller
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("babGwahir","BAB",False,3);
       $modifiers[$mod->UniqueName]=$mod;
-      $mod = new AttackModifier("biteAttackGwahir","Bite attack?",True,1);
+      $mod = new AttackModifier("biteTalonAttackGwahir","Bite or talon attack?",True,1);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("animalFocusStr","Animal Focus Str?",True,1);
       $modifiers[$mod->UniqueName]=$mod;
