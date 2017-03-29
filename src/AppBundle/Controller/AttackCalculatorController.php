@@ -117,9 +117,9 @@ class AttackCalculatorController extends Controller
       //Eas Stats
       $mod = new AttackModifier("strEa","Strength",False,4);
       $modifiers[$mod->UniqueName]=$mod;
-      $mod = new AttackModifier("babEa","BAB",False,4);
+      $mod = new AttackModifier("babEa","BAB",False,5);
       $modifiers[$mod->UniqueName]=$mod;
-      $mod = new AttackModifier("masterworkWeaponEa","Master work weapon?",False,1);
+      $mod = new AttackModifier("masterworkWeaponEa","Master work weapon?",True,1);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("rage","Rage?",True,2);
       $modifiers[$mod->UniqueName]=$mod;
