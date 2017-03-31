@@ -1,0 +1,51 @@
+{% extends 'test/base.html.twig' %}
+
+{% block content %}
+<style scoped>
+    .spellDescription{
+        margin-bottom: 5px;
+    }
+    .noDisp{
+        display: none;
+    }
+</style>
+<h2>Spells</h2>
+<div style="text-align: left; width: 50%;">
+    <div class="list-group">
+
+    <button type="button" class="list-group-item list-group-item-info" onclick="toggleDisplay('fireBallDesc');">Fire ball</button>
+    <div id="fireBallDesc" class="panel panel-default spellDescription noDisp">
+      <div class="panel-body">
+        This is what fire ball does!
+      </div>
+    </div>
+
+    <button type="button" class="list-group-item list-group-item-info" onclick="toggleDisplay('iceRayDesc');">Ice Ray</button>
+    <div id="iceRayDesc" class="panel panel-default spellDescription noDisp">
+      <div class="panel-body">
+        Ice ray does freezey things.
+      </div>
+    </div>
+
+    <button type="button" class="list-group-item list-group-item-info" onclick="toggleDisplay('rockWallDesc');">Rock wall</button>
+    <div id="rockWallDesc" class="panel panel-default spellDescription noDisp">
+      <div class="panel-body">
+        Rock wall! BOOM!
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function toggleDisplay(spellDescriptionID){
+    var spellDescription = document.getElementById(spellDescriptionID);
+    if (spellDescription.classList.contains("noDisp")) {
+        spellDescription.classList.remove("noDisp");
+    }
+    else {
+        spellDescription.classList.add("noDisp");
+    }
+}
+</script>
+{% endblock %}
