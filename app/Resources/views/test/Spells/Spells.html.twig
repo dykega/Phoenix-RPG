@@ -11,30 +11,57 @@
 </style>
 <h2>Spells</h2>
 <div style="text-align: left; width: 50%;">
-    <div class="list-group">
+    <div clas="list-group" id="allSpells">
+        <button type="button" class="list-group-item">Level 1<span class="badge">2</span></button>
+        <div class="list-group" id="levelOneSpells">
 
-    <button type="button" class="list-group-item list-group-item-info" onclick="toggleDisplay('fireBallDesc');">Fire ball</button>
-    <div id="fireBallDesc" class="panel panel-default spellDescription noDisp">
-      <div class="panel-body">
-        This is what fire ball does!
+            <button type="button" class="list-group-item list-group-item-info" onclick="toggleDisplay('fireBallDesc');">Fire ball</button>
+            <div id="fireBallDesc" class="panel panel-default spellDescription noDisp">
+              <div class="panel-body">
+                This is what fire ball does!
+              </div>
+            </div>
+
+            <button type="button" class="list-group-item list-group-item-info" onclick="toggleDisplay('iceRayDesc');">Ice Ray</button>
+            <div id="iceRayDesc" class="panel panel-default spellDescription noDisp">
+              <div class="panel-body">
+                Ice ray does freezey things.
+              </div>
+            </div>
+
+            <button type="button" class="list-group-item list-group-item-info" onclick="toggleDisplay('rockWallDesc');">Rock wall</button>
+            <div id="rockWallDesc" class="panel panel-default spellDescription noDisp">
+              <div class="panel-body">
+                Rock wall! BOOM!
+              </div>
+          </div>
+        </div>
+
+        <button type="button" class="list-group-item">Level 2<span class="badge">4</span></button>
+        <div class="list-group">
+
+        <button type="button" class="list-group-item list-group-item-info" onclick="toggleDisplay('fireBallDesc2');">2 Fire ball</button>
+        <div id="fireBallDesc2" class="panel panel-default spellDescription noDisp">
+          <div class="panel-body">
+            This is what fire ball does!
+          </div>
+        </div>
+
+        <button type="button" class="list-group-item list-group-item-info" onclick="toggleDisplay('iceRayDesc2');">2 Ice Ray</button>
+        <div id="iceRayDesc2" class="panel panel-default spellDescription noDisp">
+          <div class="panel-body">
+            Ice ray does freezey things.
+          </div>
+        </div>
+
+        <button type="button" class="list-group-item list-group-item-info" onclick="toggleDisplay('rockWallDesc2');">2 Rock wall</button>
+        <div id="rockWallDesc2" class="panel panel-default spellDescription noDisp">
+          <div class="panel-body">
+            Rock wall! BOOM!
+          </div>
+        </div>
       </div>
     </div>
-
-    <button type="button" class="list-group-item list-group-item-info" onclick="toggleDisplay('iceRayDesc');">Ice Ray</button>
-    <div id="iceRayDesc" class="panel panel-default spellDescription noDisp">
-      <div class="panel-body">
-        Ice ray does freezey things.
-      </div>
-    </div>
-
-    <button type="button" class="list-group-item list-group-item-info" onclick="toggleDisplay('rockWallDesc');">Rock wall</button>
-    <div id="rockWallDesc" class="panel panel-default spellDescription noDisp">
-      <div class="panel-body">
-        Rock wall! BOOM!
-      </div>
-    </div>
-
-  </div>
 </div>
 
 <script>

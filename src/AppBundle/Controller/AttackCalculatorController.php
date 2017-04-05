@@ -88,7 +88,7 @@ class AttackCalculatorController extends Controller
             $characterModifiers[count($characterModifiers)] = $allModifiers["animalFocusDex"];
             $characterModifiers[count($characterModifiers)] = $allModifiers["rapidShot"];
             $characterModifiers[count($characterModifiers)] = $allModifiers["pointBlankShot"];
-            $characterModifiers[count($characterModifiers)] = $allModifiers["flanked"];
+            $characterModifiers[count($characterModifiers)] = $allModifiers["flankedCompanion"];
           break;
 
           case 'Gwahir':
@@ -165,6 +165,8 @@ class AttackCalculatorController extends Controller
 
       //Conditions
       $mod = new AttackModifier("flanked","Flanked?",True,2);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("flankedCompanion","Flanked?",True,2);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("invisible","Invisible?",True,2);
       $modifiers[$mod->UniqueName]=$mod;
