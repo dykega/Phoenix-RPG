@@ -9,28 +9,12 @@
 <h1>Initiative Tracker</h1>
 <h2 id="roundTracker" class="nodisp">Round: <span id="roundCounter">1</span></h2>
 <br />
-
-<div id="characterList" class="form-inline">
-    <!-- <div class="characterSection">
-        <div class="label label-success initSection">
-            <span>Ea - 1</span>
-            <a class="btn btn-danger btn-xs characterRemoveIcon" onclick="removeCharacter('character1');" aria-label="Delete">
-                <i class="fa fa-times" aria-hidden="true"></i>
-            </a>
-        </div>
-        <div class="input-group dmgSection">
-            <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon">0</div>
-                  <input type="text" class="form-control dmgInput">
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></button>
-        </div>
-    </div> -->
-</div>
-
+<div id="characterList" class="form-inline"></div>
 <br />
+<p id="btnNextTurn" class="nodisp">
+    <button class="btn btn-lg btn-primary" onclick="clickNextInitiative()">Next Turn</button>
+</p>
+<button id="toggleEditButton" class="btn btn-lg btn-primary nodisp" onclick="toggleEditMode()">Toggle Edit</button>
 <div class="container" style="width: 200px" id="addCharContainer">
   <input type="name" id="inputName" class="form-control" placeholder="Character Name" required autofocus>
   <div class="form-group">
@@ -71,15 +55,11 @@
   <button class="btn btn-lg btn-primary btn-block" onclick="characterAdd()">Add</button>
 </div>
 <br />
-<p id="btnNextTurn" class="nodisp">
-<button class="btn btn-lg btn-primary" onclick="clickNextInitiative()">Next Turn</button>
-</p>
-<br />
-<br />
 <button id="btnStartBattle" class="btn btn-lg btn-success" onclick="startBattle()">Begin Battle!</button>
 <script>
 var characterArray = [];
 var characterNumber = 0;
+var battleStarted = false;
 
 function characterAdd(){
     var name = document.getElementById("inputName").value;
@@ -123,7 +103,7 @@ function characterAdd(){
 
     var initSection = document.createElement('div');
     initSection.className="initSection label";
-    if (insertLocation === 0) {
+    if (insertLocation === 0 && !battleStarted) {
         initSection.classList.add("label-success");
     }
     else{
@@ -191,7 +171,7 @@ function characterAdd(){
     characterContainer.insertBefore(characterSection, characterContainer.children[insertLocation]);
 
 
-    if (characterContainer.children.length > 1 && insertLocation === 0) {
+    if (characterContainer.children.length > 1 && insertLocation === 0 && !battleStarted) {
         makeCharacterNotActive(characterContainer.children[1].id);
     }
 }
@@ -236,13 +216,14 @@ function isCharacterActive(characterSecID){
 }
 
 function startBattle(){
-  var node = document.getElementById("btnStartBattle");
-  node.parentNode.removeChild(node);
-  node = document.getElementById("addCharContainer");
-  node.parentNode.removeChild(node);
+  document.getElementById("btnStartBattle").classList.add("nodisp");
+  document.getElementById("addCharContainer").classList.add("nodisp");
 
-  document.getElementById("btnNextTurn").className = "";
-  document.getElementById("roundTracker").className = "";
+  document.getElementById("btnNextTurn").classList.remove("nodisp");
+  document.getElementById("roundTracker").classList.remove("nodisp");
+  document.getElementById("toggleEditButton").classList.remove("nodisp");
+
+  battleStarted=true;
 }
 
 function clickNextInitiative(){
@@ -307,6 +288,16 @@ function getCharacterByID(id){
     }
 
     return index;
+}
+
+function toggleEditMode()
+{
+    if (document.getElementById("addCharContainer").classList.contains("nodisp")) {
+        document.getElementById("addCharContainer").classList.remove("nodisp");
+    }
+    else {
+        document.getElementById("addCharContainer").classList.add("nodisp");
+    }
 }
 
 </script>

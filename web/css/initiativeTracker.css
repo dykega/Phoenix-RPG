@@ -36,3 +36,7 @@ div.dmgSection{
 #characterList div.dmgSection input.dmgInput{
     width: 50px;
 }
+
+#toggleEditButton {
+    margin-bottom: 20px;
+}
