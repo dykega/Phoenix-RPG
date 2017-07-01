@@ -67,6 +67,8 @@ class AttackCalculatorController extends Controller
           $characterModifiers[count($characterModifiers)] = $allModifiers["weaponFocus"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["flanked"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["invisible"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["bootsOfSpeed"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["arcanePool"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["offhandLightTwoWeaponFighting"];
           break;
 
@@ -111,8 +113,11 @@ class AttackCalculatorController extends Controller
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("babThrynn","BAB",False,3);
       $modifiers[$mod->UniqueName]=$mod;
-      $mod = new AttackModifier("masterWorkDaggerThrynn","Mastwork dagger?",False,1);
+      $mod = new AttackModifier("masterWorkDaggerThrynn","Mastwork dagger?",True,1);
       $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("arcanePool","Arcane Pool?",False,0);
+      $modifiers[$mod->UniqueName]=$mod;
+
 
       //Eas Stats
       $mod = new AttackModifier("strEa","Strength",False,4);
@@ -169,6 +174,10 @@ class AttackCalculatorController extends Controller
       $mod = new AttackModifier("flankedCompanion","Flanked?",True,2);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("invisible","Invisible?",True,2);
+      $modifiers[$mod->UniqueName]=$mod;
+
+      //Misc
+      $mod = new AttackModifier("bootsOfSpeed","Boots of Speed?",True,1);
       $modifiers[$mod->UniqueName]=$mod;
 
       return $modifiers;
