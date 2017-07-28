@@ -68,7 +68,7 @@ class AttackCalculatorController extends Controller
           $characterModifiers[count($characterModifiers)] = $allModifiers["flanked"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["invisible"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["bootsOfSpeed"];
-          $characterModifiers[count($characterModifiers)] = $allModifiers["arcanePool"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["+2Weapon"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["offhandLightTwoWeaponFighting"];
           break;
 
@@ -111,11 +111,11 @@ class AttackCalculatorController extends Controller
       //Thrynns Stats
       $mod = new AttackModifier("dexThrynn","Dex",False,5);
       $modifiers[$mod->UniqueName]=$mod;
-      $mod = new AttackModifier("babThrynn","BAB",False,3);
+      $mod = new AttackModifier("babThrynn","BAB",False,5);
       $modifiers[$mod->UniqueName]=$mod;
-      $mod = new AttackModifier("masterWorkDaggerThrynn","Mastwork dagger?",True,1);
+      $mod = new AttackModifier("masterWorkDaggerThrynn","+1 Weapon",True,1);
       $modifiers[$mod->UniqueName]=$mod;
-      $mod = new AttackModifier("arcanePool","Arcane Pool?",False,0);
+      $mod = new AttackModifier("+2Weapon","+2 Weapon",True,2);
       $modifiers[$mod->UniqueName]=$mod;
 
 
