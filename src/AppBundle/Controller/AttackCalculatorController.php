@@ -63,11 +63,11 @@ class AttackCalculatorController extends Controller
         case 'Thrynn':
           $characterModifiers[count($characterModifiers)] = $allModifiers["dexThrynn"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["babThrynn"];
-          $characterModifiers[count($characterModifiers)] = $allModifiers["masterWorkDaggerThrynn"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["weaponFocus"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["flanked"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["invisible"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["bootsOfSpeed"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["masterWorkDaggerThrynn"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["+2Weapon"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["offhandLightTwoWeaponFighting"];
           break;
