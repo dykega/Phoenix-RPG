@@ -1,5 +1,9 @@
 {% extends 'test/base.html.twig' %}
 
+{% block title %}
+  <title>{{ characterName }} Attack Calculator</title>
+{% endblock %}
+
 {% block stylesheets %}
   {{ parent() }}
   <link rel="stylesheet" href="{{ asset('css/attackCalculator.css') }}">

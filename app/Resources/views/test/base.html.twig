@@ -12,7 +12,9 @@
     <script src="https://use.fontawesome.com/f18d3501c1.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/d34132666e.css">
 
-    <title>Phoenix RPG Test</title>
+    {% block title %}
+      <title>Phoenix RPG Test</title>
+    {% endblock %}
 
     {% block stylesheets %}
       <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
