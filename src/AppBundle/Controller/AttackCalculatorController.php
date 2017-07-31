@@ -72,6 +72,16 @@ class AttackCalculatorController extends Controller
           $characterModifiers[count($characterModifiers)] = $allModifiers["offhandLightTwoWeaponFighting"];
           break;
 
+        case 'Kai':
+          $characterModifiers[count($characterModifiers)] = $allModifiers["dexKai"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["babKai"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["flanked"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["invisible"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["bootsOfSpeed"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["masterWorkDaggerThrynn"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["offhandLightTwoWeaponFighting"];
+          break;
+
         case 'Ea':
           $characterModifiers[count($characterModifiers)] = $allModifiers["strEa"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["babEa"];
@@ -116,6 +126,12 @@ class AttackCalculatorController extends Controller
       $mod = new AttackModifier("masterWorkDaggerThrynn","+1 Weapon",True,1);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("+2Weapon","+2 Weapon",True,2);
+      $modifiers[$mod->UniqueName]=$mod;
+
+      //Kai Stats
+      $mod = new AttackModifier("dexKai","Dex",False,4);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("babKai","BAB",False,5);
       $modifiers[$mod->UniqueName]=$mod;
 
 
