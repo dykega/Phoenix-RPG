@@ -62,7 +62,8 @@ class AttackCalculatorController extends Controller
       switch ($characterName) {
         case 'Thrynn':
           $characterModifiers[count($characterModifiers)] = $allModifiers["dexThrynn"];
-          $characterModifiers[count($characterModifiers)] = $allModifiers["babThrynn"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["babThrynn1"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["babThrynn2"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["weaponFocus"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["flanked"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["invisible"];
@@ -70,7 +71,22 @@ class AttackCalculatorController extends Controller
           $characterModifiers[count($characterModifiers)] = $allModifiers["masterWorkDaggerThrynn"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["+2Weapon"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["offhandLightTwoWeaponFighting"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["improvedTwoWeaponFighting"];
           break;
+
+      case 'Aleris':
+        $characterModifiers[count($characterModifiers)] = $allModifiers["dexAleris"];
+        $characterModifiers[count($characterModifiers)] = $allModifiers["babAleris1"];
+        $characterModifiers[count($characterModifiers)] = $allModifiers["babAleris2"];
+        $characterModifiers[count($characterModifiers)] = $allModifiers["weaponFocus"];
+        $characterModifiers[count($characterModifiers)] = $allModifiers["flanked"];
+        $characterModifiers[count($characterModifiers)] = $allModifiers["bootsOfSpeed"];
+        $characterModifiers[count($characterModifiers)] = $allModifiers["pointBlankShot"];
+        $characterModifiers[count($characterModifiers)] = $allModifiers["rapidShot"];
+        $characterModifiers[count($characterModifiers)] = $allModifiers["arcaneStrike"];
+        $characterModifiers[count($characterModifiers)] = $allModifiers["masterWorkWeapon"];
+        $characterModifiers[count($characterModifiers)] = $allModifiers["+2Weapon"];
+        break;
 
         case 'Ky':
           $characterModifiers[count($characterModifiers)] = $allModifiers["dexKy"];
@@ -121,9 +137,23 @@ class AttackCalculatorController extends Controller
       //Thrynns Stats
       $mod = new AttackModifier("dexThrynn","Dex",False,5);
       $modifiers[$mod->UniqueName]=$mod;
-      $mod = new AttackModifier("babThrynn","BAB",False,5);
+      $mod = new AttackModifier("babThrynn1","BAB +6",True,6);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("babThrynn2","BAB +1",True,1);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("masterWorkDaggerThrynn","+1 Weapon",True,1);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("+2Weapon","+2 Weapon",True,2);
+      $modifiers[$mod->UniqueName]=$mod;
+
+      //Aleris Stats
+      $mod = new AttackModifier("dexAleris","Dex",False,5);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("babAleris1","BAB +6",True,6);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("babAleris2","BAB +1",True,1);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("masterWorkWeapon","+1 Weapon",True,1);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("+2Weapon","+2 Weapon",True,2);
       $modifiers[$mod->UniqueName]=$mod;
@@ -178,10 +208,16 @@ class AttackCalculatorController extends Controller
       $mod = new AttackModifier("offhandLightTwoWeaponFighting","Using Offhand?",True,-2);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("offhandTwoWeaponFighting","Using Offhand?",True,-4);
+      $modifiers[$mod->UniqueName]=$mod
+      $mod = new AttackModifier("improvedTwoWeaponFighting","2nd Offhand?",True,-5);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("rapidShot","Rapid Shot?",True,-2);
       $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("multiShot","Multi Shot?",True,-2);
+      $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("pointBlankShot","<30 ft?",True,1);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("arcaneStrike","Arcane Strike?",True,+1);
       $modifiers[$mod->UniqueName]=$mod;
 
       //Conditions
