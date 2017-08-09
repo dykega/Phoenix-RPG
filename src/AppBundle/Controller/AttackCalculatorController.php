@@ -78,6 +78,7 @@ class AttackCalculatorController extends Controller
           $characterModifiers[count($characterModifiers)] = $allModifiers["dexAleris"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["babAleris1"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["babAleris2"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["LetFateDecide"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["weaponFocus"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["flanked"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["bootsOfSpeed"];
@@ -147,11 +148,13 @@ class AttackCalculatorController extends Controller
       $modifiers[$mod->UniqueName]=$mod;
 
       //Aleris Stats
-      $mod = new AttackModifier("dexAleris","Dex",False,5);
+      $mod = new AttackModifier("dexAleris","Dex",False,6);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("babAleris1","BAB +6",True,6);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("babAleris2","BAB +1",True,1);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("LetFateDecide","Let Fate Decide",True,4);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("masterWorkWeapon","+1 Weapon",True,1);
       $modifiers[$mod->UniqueName]=$mod;
