@@ -45,6 +45,20 @@ class AttackCalculatorController extends Controller
               }
           }
       }
+      if ($characterName == "Aleris") {
+          $companionName = "Aleris Damage";
+          $companionModifiers = $this->getCharacterModifiers($companionName, $allModifiers);
+          $toggleableCompanionModifiers = [];
+          $baseCompanionModifier = 0;
+          foreach ($companionModifiers as $mod) {
+              if(!$mod->IsToggleable){
+                $baseCompanionModifier += $mod->Modifier;
+              }
+              else{
+                $toggleableCompanionModifiers[count($toggleableCompanionModifiers)] = $mod;
+              }
+          }
+      }
       $html = $templating->render('test/AttackCalculator/AttackCalculator.html.twig', array(
             'characterName' => $characterName,
             'toggleableModifiers' => $toggleableModifiers,
@@ -84,9 +98,17 @@ class AttackCalculatorController extends Controller
           $characterModifiers[count($characterModifiers)] = $allModifiers["bootsOfSpeed"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["pointBlankShot"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["rapidShot"];
-          $characterModifiers[count($characterModifiers)] = $allModifiers["arcaneStrike"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["masterWorkWeapon"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["+2Weapon"];
+          break;
+
+        case 'Aleris Damage':
+          $characterModifiers[count($characterModifiers)] = $allModifiers["dexAlerisDamage"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["strAleris"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["arcaneStrike"];
+           $characterModifiers[count($characterModifiers)] = $allModifiers["pointBlankShotDamage"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["masterWorkWeaponDamage"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["+2WeaponDamage"];
           break;
 
         case 'Ky':
@@ -144,8 +166,6 @@ class AttackCalculatorController extends Controller
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("masterWorkDaggerThrynn","+1 Weapon",True,1);
       $modifiers[$mod->UniqueName]=$mod;
-      $mod = new AttackModifier("+2Weapon","+2 Weapon",True,2);
-      $modifiers[$mod->UniqueName]=$mod;
 
       //Aleris Stats
       $mod = new AttackModifier("dexAleris","Dex",False,6);
@@ -158,6 +178,15 @@ class AttackCalculatorController extends Controller
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("masterWorkWeapon","+1 Weapon",True,1);
       $modifiers[$mod->UniqueName]=$mod;
+
+      $mod = new AttackModifier("dexAlerisDamage","Short Sword?",True,6);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("strAleris","Thrown Weapon?",True,3);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("masterWorkWeaponDamage","+1 Weapon",True,1);
+      $modifiers[$mod->UniqueName]=$mod;
+
+
 
       //Ky Stats
       $mod = new AttackModifier("dexKy","Dex",False,4);
@@ -218,7 +247,13 @@ class AttackCalculatorController extends Controller
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("pointBlankShot","<30 ft?",True,1);
       $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("pointBlankShotDamage","<30 ft?",True,1);
+      $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("arcaneStrike","Arcane Strike?",True,+1);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("deadlyAim","Deadly Aim?",True,-2);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("deadlyAimDamage","Deadly Aim?",True,+4);
       $modifiers[$mod->UniqueName]=$mod;
 
       //Conditions
@@ -231,6 +266,10 @@ class AttackCalculatorController extends Controller
 
       //Misc
       $mod = new AttackModifier("bootsOfSpeed","Boots of Speed?",True,1);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("+2Weapon","+2 Weapon",True,2);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("+2WeaponDamage","+2 Weapon",True,2);
       $modifiers[$mod->UniqueName]=$mod;
 
       return $modifiers;
