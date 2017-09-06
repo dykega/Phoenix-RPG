@@ -100,6 +100,9 @@ class AttackCalculatorController extends Controller
           $characterModifiers[count($characterModifiers)] = $allModifiers["rapidShot"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["masterWorkWeapon"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["+2Weapon"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["+4Weapon"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["dragonBane"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["cardThrowerGloves"];
           break;
 
         case 'Aleris Damage':
@@ -109,6 +112,9 @@ class AttackCalculatorController extends Controller
            $characterModifiers[count($characterModifiers)] = $allModifiers["pointBlankShotDamage"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["masterWorkWeaponDamage"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["+2WeaponDamage"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["+4WeaponDamage"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["dragonBaneDamage"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["cardThrowerGlovesDamage"];
           break;
 
         case 'Ky':
@@ -178,12 +184,20 @@ class AttackCalculatorController extends Controller
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("masterWorkWeapon","+1 Weapon",True,1);
       $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("cardThrowerGloves","Card Thrower Gloves?",True,2);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("dragonBane","Dragon Bane?",True,2);
+      $modifiers[$mod->UniqueName]=$mod;
 
       $mod = new AttackModifier("dexAlerisDamage","Short Sword?",True,6);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("strAleris","Thrown Weapon?",True,3);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("masterWorkWeaponDamage","+1 Weapon",True,1);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("cardThrowerGlovesDamage","Card Thrower Gloves?",True,2);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("dragonBaneDamage","Dragon Bane?",True,2);
       $modifiers[$mod->UniqueName]=$mod;
 
 
@@ -270,6 +284,14 @@ class AttackCalculatorController extends Controller
       $mod = new AttackModifier("+2Weapon","+2 Weapon",True,2);
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("+2WeaponDamage","+2 Weapon",True,2);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("+3Weapon","+3 Weapon",True,3);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("+3WeaponDamage","+3 Weapon",True,3);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("+4Weapon","+4 Weapon",True,4);
+      $modifiers[$mod->UniqueName]=$mod;
+      $mod = new AttackModifier("+4WeaponDamage","+4 Weapon",True,4);
       $modifiers[$mod->UniqueName]=$mod;
 
       return $modifiers;
