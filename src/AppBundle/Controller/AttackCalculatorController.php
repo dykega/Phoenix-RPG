@@ -124,6 +124,9 @@ class AttackCalculatorController extends Controller
           $characterModifiers[count($characterModifiers)] = $allModifiers["invisible"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["bootsOfSpeed"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["masterWorkDaggerThrynn"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["+2Weapon"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["+3Weapon"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["+4Weapon"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["offhandLightTwoWeaponFighting"];
           break;
 
@@ -203,9 +206,9 @@ class AttackCalculatorController extends Controller
 
 
       //Ky Stats
-      $mod = new AttackModifier("dexKy","Dex",False,4);
+      $mod = new AttackModifier("dexKy","Dex",False,5);
       $modifiers[$mod->UniqueName]=$mod;
-      $mod = new AttackModifier("babKy","BAB",False,5);
+      $mod = new AttackModifier("babKy","BAB",False,6);
       $modifiers[$mod->UniqueName]=$mod;
 
 
