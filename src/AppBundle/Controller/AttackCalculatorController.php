@@ -127,7 +127,7 @@ class AttackCalculatorController extends Controller
           $characterModifiers[count($characterModifiers)] = $allModifiers["+2Weapon"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["+3Weapon"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["+4Weapon"];
-          $characterModifiers[count($characterModifiers)] = $allModifiers["VolskarToil"];
+          $characterModifiers[count($characterModifiers)] = $allModifiers["DroksarToil"];
           $characterModifiers[count($characterModifiers)] = $allModifiers["offhandLightTwoWeaponFighting"];
           break;
 
@@ -297,7 +297,7 @@ class AttackCalculatorController extends Controller
       $modifiers[$mod->UniqueName]=$mod;
       $mod = new AttackModifier("+4WeaponDamage","+4 Weapon",True,4);
       $modifiers[$mod->UniqueName]=$mod;
-      $mod = new AttackModifier("VolskarToil","Volskars Toil?",True,1);
+      $mod = new AttackModifier("DroksarToil","Droskars Toil?",True,1);
       $modifiers[$mod->UniqueName]=$mod;
 
       return $modifiers;
